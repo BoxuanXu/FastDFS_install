@@ -19,7 +19,7 @@ if [ ! -s "/usr/lib64/libfastcommon.so" ];then
       cd libfastcommon
    fi
    ./make.sh
-   echo $PASSWORD | sudo -S ./make.sh install
+   ./make.sh install
 else
    echo "fastcommon has been installed"
 fi
