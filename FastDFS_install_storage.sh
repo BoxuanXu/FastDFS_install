@@ -212,4 +212,4 @@ cd /usr/local/nginx
 echo $PASSWORD | sudo -S ./nginx
 
 
-echo "Please enter the following URL:http://"$local_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 
+echo "Please enter the following URL:http://"tracker_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 
