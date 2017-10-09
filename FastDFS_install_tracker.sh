@@ -5,8 +5,6 @@
 #__Date__        = "20170908"
 
 
-echo "please enter your password:"
-read PASSWORD
 
 s_pwd=$PWD
 
@@ -22,7 +20,7 @@ if [ ! -s "/usr/lib64/libfastcommon.so" ];then
       cd libfastcommon
    fi
    ./make.sh
-   echo $PASSWORD | sudo -S ./make.sh install
+    ./make.sh install
 else
    echo "fastcommon has been installed"
 fi
@@ -51,39 +49,39 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
       cd fastdfs
    fi
    ./make.sh
-   echo $PASSWORD | sudo -S ./make.sh install
+    ./make.sh install
 
    #copy configure file to etc dir
-   echo $PASSWORD | sudo -S cp conf/http.conf conf/mime.types /etc/fdfs
+    cp conf/http.conf conf/mime.types /etc/fdfs
 
    echo "Begin edit configure file"
    #create three dir to save tracker storage and client data
-   echo $PASSWORD | sudo -S mkdir -p /data/fastdfs/tracker
-   echo $PASSWORD | sudo -S mkdir -p /data/fastdfs/storage
-   echo $PASSWORD | sudo -S mkdir -p /data/fastdfs/client
+    mkdir -p /data/fastdfs/tracker
+    mkdir -p /data/fastdfs/storage
+    mkdir -p /data/fastdfs/client
 
    #edit fastdfs's configure file
    cd /etc/fdfs
-   echo $PASSWORD | sudo -S cp client.conf.sample client.conf
-   echo $PASSWORD | sudo -S cp storage.conf.sample storage.conf
-   echo $PASSWORD | sudo -S cp tracker.conf.sample tracker.conf
+    cp client.conf.sample client.conf
+    cp storage.conf.sample storage.conf
+    cp tracker.conf.sample tracker.conf
 
    #edit tracker's configure file
-   echo $PASSWORD | sudo -S sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/tracker/g" tracker.conf 
+    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/tracker/g" tracker.conf 
 
 
    #edit storage's configure file
-   echo $PASSWORD | sudo -S sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/storage/g" storage.conf 
-   echo $PASSWORD | sudo -S sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" storage.conf
+    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/storage/g" storage.conf 
+    sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" storage.conf
 
    #get local host ip
    local_ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
  
-   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
+    sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
 
    #edit client's configure file
-   echo $PASSWORD | sudo -S sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/client/g" client.conf 
-   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.0.197:22122/tracker_server=tracker_ip:22122/g" client.conf
+    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/client/g" client.conf 
+    sed -i "s/tracker_server=192.168.0.197:22122/tracker_server=tracker_ip:22122/g" client.conf
 
    echo "finish edit configure file"
 
@@ -101,9 +99,9 @@ fi
 cd $s_pwd
 
 #start fastdfs's service
-echo $PASSWORD | sudo -S kill -9 `ps -ef | grep fdfs_ | grep -v grep | awk '{print $2}'`
-echo $PASSWORD | sudo -S /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
-echo $PASSWORD | sudo -S /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
+ kill -9 `ps -ef | grep fdfs_ | grep -v grep | awk '{print $2}'`
+ /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
+ /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
 
 echo "fastdfs's service started,if wrong here,please run this batch program again!"
 #a test of fastdfs
@@ -135,11 +133,11 @@ fi
 sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" mod_fastdfs.conf
 sed -i "s/tracker_server=tracker:22122/tracker_server=tracker_ip:22122/g" mod_fastdfs.conf
 sed -i "s/url_have_group_name = false/url_have_group_name = true/g" mod_fastdfs.conf
-echo $PASSWORD | sudo -S cp mod_fastdfs.conf /etc/fdfs
+cp mod_fastdfs.conf /etc/fdfs
 
 
 
-echo $PASSWORD | sudo -S  ln -s /data/fastdfs/storage/data/ /data/fastdfs/storage/data/M00
+ln -s /data/fastdfs/storage/data/ /data/fastdfs/storage/data/M00
 
 echo "FastDFS install success;"
 
@@ -149,10 +147,10 @@ cd $s_pwd
 if [ ! -s "nginx-1.8.1.tar.gz" ];then
    echo "Begin download nginx-1.8.1.tar.gz:"
    wget -c -r http://nginx.org/download/nginx-1.8.1.tar.gz
-   echo $PASSWORD | sudo -S tar -xvf nginx.org/download/nginx-1.8.1.tar.gz -C /usr/local 
+   tar -xvf nginx.org/download/nginx-1.8.1.tar.gz -C /usr/local 
 else
    echo "Don't need to download nginx-1.8.1.tar.gz"
-   echo $PASSWORD | sudo -S tar -xvf nginx-1.8.1.tar.gz -C /usr/local
+   tar -xvf nginx-1.8.1.tar.gz -C /usr/local
 fi
 
 
@@ -161,37 +159,37 @@ echo "nginx down success;"
 
 
 unzip pcre-8.41.zip
-echo $PASSWORD | sudo -S cp -r pcre-8.41 /usr/local/pcre-8.41
+cp -r pcre-8.41 /usr/local/pcre-8.41
 
 
 tar zxvf openssl-1.0.2l.tar.gz
-echo $PASSWORD | sudo -S cp  -r    openssl-1.0.2l  /usr/local/openssl-1.0.2l
+cp  -r    openssl-1.0.2l  /usr/local/openssl-1.0.2l
 
 tar zxvf zlib-1.2.11.tar.gz
-echo $PASSWORD | sudo -S cp  -r    zlib-1.2.11   /usr/local/zlib-1.2.11
+cp  -r    zlib-1.2.11   /usr/local/zlib-1.2.11
 
 cd /usr/local/pcre-8.41/
-echo $PASSWORD | sudo -S ./configure
-echo $PASSWORD | sudo -S make
-echo $PASSWORD | sudo -S make install
+./configure
+make
+make install
 
 cd /usr/local/openssl-1.0.2l/
-echo $PASSWORD | sudo -S ./config
-echo $PASSWORD | sudo -S make
-echo $PASSWORD | sudo -S make install
+./config
+make
+make install
 
 cd /usr/local/zlib-1.2.11/
-echo $PASSWORD | sudo -S ./configure
-echo $PASSWORD | sudo -S make
-echo $PASSWORD | sudo -S make install
+./configure
+make
+make install
 
 if [ ! -d "/usr/local/nginx" ];then
    cd /usr/local/nginx-1.8.1/
-   echo $PASSWORD | sudo -S ./configure --sbin-path=/usr/local/nginx/nginx --conf-path=/usr/local/nginx/nginx.conf --pid-path=/usr/local/nginx/nginx.pid --with-http_ssl_module --with-openssl=../openssl-1.0.2l --with-pcre=../pcre-8.41 --with-zlib=../zlib-1.2.11 --add-module=$s_pwd/fastdfs-nginx-module/src
-   echo $PASSWORD | sudo -S make
-   echo $PASSWORD | sudo -S make install
+    ./configure --sbin-path=/usr/local/nginx/nginx --conf-path=/usr/local/nginx/nginx.conf --pid-path=/usr/local/nginx/nginx.pid --with-http_ssl_module --with-openssl=../openssl-1.0.2l --with-pcre=../pcre-8.41 --with-zlib=../zlib-1.2.11 --add-module=$s_pwd/fastdfs-nginx-module/src
+    make
+    make install
 
-   echo $PASSWORD | sudo -S cp $s_pwd/nginx.conf /usr/local/nginx/
+    cp $s_pwd/nginx.conf /usr/local/nginx/
 else
    echo "nginx has been installed"
 fi
@@ -203,10 +201,10 @@ else
    exit 1
 fi
 	
-echo $PASSWORD | sudo -S kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
+kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
 cd /usr/local/nginx
-echo $PASSWORD | sudo -S ./nginx
+./nginx
 
 
 echo "Please enter the following URL:http://"tracker_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 
