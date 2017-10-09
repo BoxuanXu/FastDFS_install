@@ -79,11 +79,11 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
    #get local host ip
    local_ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
  
-   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=$local_ip:22122/g" storage.conf
+   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
 
    #edit client's configure file
    echo $PASSWORD | sudo -S sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/client/g" client.conf 
-   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.0.197:22122/tracker_server=$local_ip:22122/g" client.conf
+   echo $PASSWORD | sudo -S sed -i "s/tracker_server=192.168.0.197:22122/tracker_server=tracker_ip:22122/g" client.conf
 
    echo "finish edit configure file"
 
@@ -133,7 +133,7 @@ else
 fi
 
 sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" mod_fastdfs.conf
-sed -i "s/tracker_server=tracker:22122/tracker_server=$local_ip:22122/g" mod_fastdfs.conf
+sed -i "s/tracker_server=tracker:22122/tracker_server=tracker_ip:22122/g" mod_fastdfs.conf
 sed -i "s/url_have_group_name = false/url_have_group_name = true/g" mod_fastdfs.conf
 echo $PASSWORD | sudo -S cp mod_fastdfs.conf /etc/fdfs
 
