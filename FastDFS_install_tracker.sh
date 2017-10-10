@@ -18,6 +18,7 @@ if [ ! -s "/usr/lib64/libfastcommon.so" ];then
       echo "Don't need to download libfastcommon"
       cd libfastcommon
    fi
+   chmod +x make.sh
    ./make.sh
    ./make.sh install
 else
@@ -47,6 +48,7 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
       echo "Don't need to download fastdfs"
       cd fastdfs
    fi
+   chmod +x make.sh
    ./make.sh
    ./make.sh install
 
@@ -62,7 +64,7 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
    #edit fastdfs's configure file
    cd /etc/fdfs
    cp client.conf.sample client.conf
-   #cp storage.conf.sample storage.conf
+   cp storage.conf.sample storage.conf
    cp tracker.conf.sample tracker.conf
 
    #edit tracker's configure file
@@ -70,13 +72,13 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
 
 
    #edit storage's configure file
-   #sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/storage/g" storage.conf 
-   #sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" storage.conf
+   sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/storage/g" storage.conf 
+   sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" storage.conf
 
    #get local host ip
    #local_ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
  
-   #sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
+   sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
 
    #edit client's configure file
    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/client/g" client.conf 

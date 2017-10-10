@@ -18,6 +18,7 @@ if [ ! -s "/usr/lib64/libfastcommon.so" ];then
       echo "Don't need to download libfastcommon"
       cd libfastcommon
    fi
+   chmod +x make.sh
    ./make.sh
    ./make.sh install
 else
@@ -47,6 +48,7 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
       echo "Don't need to download fastdfs"
       cd fastdfs
    fi
+   chmod +x make.sh
    ./make.sh
    ./make.sh install
 
