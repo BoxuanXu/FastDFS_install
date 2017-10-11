@@ -101,26 +101,26 @@ fi
 cd $s_pwd
 
 #start fastdfs's service
- kill -9 `ps -ef | grep fdfs_ | grep -v grep | awk '{print $2}'`
+# kill -9 `ps -ef | grep fdfs_ | grep -v grep | awk '{print $2}'`
  /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
  /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
 
-echo "fastdfs's service started,if wrong here,please run this batch program again!"
+#echo "fastdfs's service started,if wrong here,please run this batch program again!"
 #a test of fastdfs
-sleep 10s 
+#sleep 10s 
 
-echo "test" >> /tmp/test.tar.gz
-result_fastdfs=`/usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/test.tar.gz`
-echo "upload:"$result_fastdfs
+#echo "test" >> /tmp/test.tar.gz
+#result_fastdfs=`/usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/test.tar.gz`
+#echo "upload:"$result_fastdfs
 
-if [[ ${result_fastdfs} =~ "group" && ! ${result_fastdfs} =~ "ERROR" ]];then
-     echo "FastDFS install Success!!!"
-else 
-     echo "FastDFS install error!!!"
-     exit 1;
-fi
+#if [[ ${result_fastdfs} =~ "group" && ! ${result_fastdfs} =~ "ERROR" ]];then
+#     echo "FastDFS install Success!!!"
+#else 
+#     echo "FastDFS install error!!!"
+#     exit 1;
+#fi
 
-cd $s_pwd
+#cd $s_pwd
 
 #install fastdfs-nginx-model
 if [ ! -d "fastdfs-nginx-module" ];then
