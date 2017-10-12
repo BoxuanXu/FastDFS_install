@@ -57,34 +57,10 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
     cp conf/http.conf conf/mime.types /etc/fdfs
 
    echo "Begin edit configure file"
-   #create three dir to save tracker storage and client data
-    mkdir -p /data/fastdfs/tracker
-    mkdir -p /data/fastdfs/storage
-    mkdir -p /data/fastdfs/client
 
-   #edit fastdfs's configure file
-   cd /etc/fdfs
-    cp client.conf.sample client.conf
-    cp storage.conf.sample storage.conf
-    cp tracker.conf.sample tracker.conf
-
-   #edit tracker's configure file
-    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/tracker/g" tracker.conf 
-
-
-   #edit storage's configure file
-    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/storage/g" storage.conf 
-    sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" storage.conf
-
-   #get local host ip
-   local_ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
- 
-    sed -i "s/tracker_server=192.168.209.121:22122/tracker_server=tracker_ip:22122/g" storage.conf
-
-   #edit client's configure file
-    sed -i "s/base_path=\/home\/yuqing\/fastdfs/base_path=\/data\/fastdfs\/client/g" client.conf 
-    sed -i "s/tracker_server=192.168.0.197:22122/tracker_server=tracker_ip:22122/g" client.conf
-
+   cp change_tracker_conf.sh /etc/fdfs/
+   cp change_storage_conf.sh /etc/fdfs/
+   
    echo "finish edit configure file"
 
 else
@@ -98,29 +74,6 @@ else
    exit 1
 fi
 
-cd $s_pwd
-
-#start fastdfs's service
-# kill -9 `ps -ef | grep fdfs_ | grep -v grep | awk '{print $2}'`
- /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
- /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
-
-#echo "fastdfs's service started,if wrong here,please run this batch program again!"
-#a test of fastdfs
-#sleep 10s 
-
-#echo "test" >> /tmp/test.tar.gz
-#result_fastdfs=`/usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/test.tar.gz`
-#echo "upload:"$result_fastdfs
-
-#if [[ ${result_fastdfs} =~ "group" && ! ${result_fastdfs} =~ "ERROR" ]];then
-#     echo "FastDFS install Success!!!"
-#else 
-#     echo "FastDFS install error!!!"
-#     exit 1;
-#fi
-
-#cd $s_pwd
 
 #install fastdfs-nginx-model
 if [ ! -d "fastdfs-nginx-module" ];then
@@ -132,9 +85,6 @@ else
    cd fastdfs-nginx-module/src
 fi
 
-sed -i "s/store_path0=\/home\/yuqing\/fastdfs/store_path0=\/data\/fastdfs\/storage/g" mod_fastdfs.conf
-sed -i "s/tracker_server=tracker:22122/tracker_server=tracker_ip:22122/g" mod_fastdfs.conf
-sed -i "s/url_have_group_name = false/url_have_group_name = true/g" mod_fastdfs.conf
 cp mod_fastdfs.conf /etc/fdfs
 
 
@@ -205,8 +155,6 @@ fi
 	
 kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
-cd /usr/local/nginx
-./nginx
 
 
 echo "Please enter the following URL:http://"tracker_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 
