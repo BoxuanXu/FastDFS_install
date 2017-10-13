@@ -26,7 +26,7 @@ done
 
 pid=`ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
 
-if [ "${sn}" = "" ];then
+if [ "${pid}" = "" ];then
   /usr/local/nginx/nginx
 else
   kill -9 $pid
