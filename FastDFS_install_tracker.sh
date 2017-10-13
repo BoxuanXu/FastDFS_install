@@ -58,9 +58,6 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
 
    echo "Begin edit configure file"
 
-   cp change_tracker_conf.sh /etc/fdfs/
-   cp change_storage_conf.sh /etc/fdfs/
-   
    echo "finish edit configure file"
 
 else
@@ -94,6 +91,9 @@ ln -s /data/fastdfs/storage/data/ /data/fastdfs/storage/data/M00
 echo "FastDFS install success;"
 
 cd $s_pwd
+   
+cp change_tracker_conf.sh /etc/fdfs/
+cp change_storage_conf.sh /etc/fdfs/
 #download nginx-1.8.1
 
 if [ ! -s "nginx-1.8.1.tar.gz" ];then
@@ -153,7 +153,6 @@ else
    exit 1
 fi
 	
-kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
 
 

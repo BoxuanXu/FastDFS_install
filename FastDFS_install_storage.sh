@@ -56,9 +56,6 @@ if [ ! -s "/usr/bin/fdfs_test" ];then
    #copy configure file to etc dir
     cp conf/http.conf conf/mime.types /etc/fdfs
    
-   echo "Begin edit configure file"
-
-   cp change_storage_conf.sh /etc/fdfs/
 
    echo "Begin edit configure file"
 
@@ -77,6 +74,7 @@ fi
 
 cd $s_pwd
 
+cp change_storage_conf.sh /etc/fdfs/
 
 #install fastdfs-nginx-model
 if [ ! -d "fastdfs-nginx-module" ];then
@@ -157,7 +155,6 @@ else
    exit 1
 fi
 	
-kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
 
 
