@@ -23,5 +23,5 @@ for g in $arr;do
     fi
 done
 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
-kill -9 `ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
+#kill -9 `ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
 /usr/local/nginx/nginx

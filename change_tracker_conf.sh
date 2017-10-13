@@ -55,5 +55,5 @@ echo "finish edit configure file"
 
  
 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
-kill -9 `ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
+#kill -9 `ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
 /usr/local/nginx/nginx
