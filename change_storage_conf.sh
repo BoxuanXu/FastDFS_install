@@ -23,5 +23,12 @@ for g in $arr;do
     fi
 done
 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
-#kill -9 `ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
-/usr/local/nginx/nginx
+
+pid=`ps -ef | grep nginx | grep -v grep | awk '{print $2}'` 
+
+if [ "${sn}" = "" ];then
+  /usr/local/nginx/nginx
+else
+  kill -9 $pid
+  /usr/local/nginx/nginx
+fi
