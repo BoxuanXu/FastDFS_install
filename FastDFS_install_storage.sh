@@ -144,7 +144,6 @@ if [ ! -d "/usr/local/nginx" ];then
 
     cp $s_pwd/nginx.conf /usr/local/nginx/
    
-   sed -i "s/group1/GROUP/g" /usr/local/nginx/nginx.conf
 else
    echo "nginx has been installed"
 fi
@@ -160,4 +159,3 @@ kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
 
 
-echo "Please enter the following URL:http://"tracker_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 

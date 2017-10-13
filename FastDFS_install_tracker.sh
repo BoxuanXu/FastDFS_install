@@ -157,4 +157,3 @@ kill -9 `ps -ef | grep "nginx: " | grep -v grep | awk '{print $2}'`
 
 
 
-echo "Please enter the following URL:http://"tracker_ip"/"$result_fastdfs" or http://localhost/"$result_fastdfs 
