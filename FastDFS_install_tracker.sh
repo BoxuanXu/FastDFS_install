@@ -93,7 +93,6 @@ echo "FastDFS install success;"
 cd $s_pwd
    
 cp change_tracker_conf.sh /etc/fdfs/
-cp change_storage_conf.sh /etc/fdfs/
 #download nginx-1.8.1
 
 if [ ! -s "nginx-1.8.1.tar.gz" ];then

@@ -60,9 +60,12 @@ for g in $arr;do
     sed -i "N;46alocation /group$g/M00 {" /usr/local/nginx/nginx.conf;
     group_num=$(($group_num +1)); 
 done
-sed -i "s/group_count = 0/group_count = $group_num/g" mod_fastdfs.conf
-sed -i "s/group_name=group1/group_name=$group_name/g" mod_fastdfs.conf
-
+if [ "$group_num" -eq "1" ];then
+   sed -i "s/group_name=group1/group_name=$group_name/g" mod_fastdfs.conf
+else
+   sed -i "s/group_count = 0/group_count = $group_num/g" mod_fastdfs.conf
+   sed -i "s/group_name=group1/group_name=$group_name/g" mod_fastdfs.conf
+fi
 
 echo "finish edit configure file"
 
