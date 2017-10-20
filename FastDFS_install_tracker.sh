@@ -39,20 +39,30 @@ cd $s_pwd
 #begin install fastdfs-pro
 
 
-if [ ! -s "/usr/bin/fdfs_test" ];then
+if [ ! -s "/usr/local/fastdfs-pro/bin/fdfs_test" ];then
    echo "Begin install fastdfs"
-   if [ ! -d "fastdfs" ];then
+   if [ ! -d "fastdfs-pro" ];then
       echo "Begin download fastdfs:"
-      git clone https://github.com/happyfish100/fastdfs.git
-      cd fastdfs
+      #git clone https://github.com/happyfish100/fastdfs.git
+      git clone git@47.92.110.187:shenyizhong/fastdfs-pro.git
+      cd fastdfs-pro
+      git checkout dev 
    else
       echo "Don't need to download fastdfs"
-      cd fastdfs
+      cd fastdfs-pro
    fi
    chmod +x make.sh
    ./make.sh
     ./make.sh install
 
+    echo \#\!/bin/sh >> /etc/profile.d/fastdfs-pro.sh
+    echo "export FASTDFS_PRO_HOME=/usr/local/fastdfs-pro" >> /etc/profile.d/fastdfs-pro.sh
+    echo "export PATH=\$PATH:\$FASTDFS_PRO_HOME/bin" >> /etc/profile.d/fastdfs-pro.sh
+    echo "export C_INCLUDE_PATH=\$C_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
+    echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
+    source /etc/profile
+    ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
+    ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so 
    #copy configure file to etc dir
     cp conf/http.conf conf/mime.types /etc/fdfs
 
