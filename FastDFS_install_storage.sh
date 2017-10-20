@@ -63,6 +63,7 @@ if [ ! -s "/usr/local/fastdfs-pro/bin/fdfs_test" ];then
     echo "export C_INCLUDE_PATH=\$C_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
     echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
     source /etc/profile
+    rm -rf /usr/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so
     ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
     ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so 
    #copy configure file to etc dir
