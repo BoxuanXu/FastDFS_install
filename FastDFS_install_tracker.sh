@@ -57,16 +57,17 @@ if [ ! -s "/usr/local/fastdfs-pro/bin/fdfs_test" ];then
    ./make.sh
     ./make.sh install
 
-    echo \#\!/bin/sh >> /etc/profile.d/fastdfs-pro.sh
-    echo "export FASTDFS_PRO_HOME=/usr/local/fastdfs-pro" >> /etc/profile.d/fastdfs-pro.sh
-    echo "export PATH=\$PATH:\$FASTDFS_PRO_HOME/bin" >> /etc/profile.d/fastdfs-pro.sh
-    echo "export C_INCLUDE_PATH=\$C_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
-    echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
-    source /etc/profile
-    rm -rf /usr/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so
-    ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib64/libfdfsclient.so
-    ln -s /usr/local/fastdfs-pro/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so 
-   #copy configure file to etc dir
+    #echo \#\!/bin/sh >> /etc/profile.d/fastdfs-pro.sh
+    #echo "export FASTDFS_PRO_HOME=/usr/local/fastdfs-pro" >> /etc/profile.d/fastdfs-pro.sh
+    #echo "export PATH=\$PATH:\$FASTDFS_PRO_HOME/bin" >> /etc/profile.d/fastdfs-pro.sh
+    #echo "export C_INCLUDE_PATH=\$C_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
+    #echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:\$FASTDFS_PRO_HOME/include" >> /etc/profile.d/fastdfs-pro.sh
+    #source /etc/profile
+    #rm -rf /usr/lib64/libfdfsclient.so /usr/lib/libfdfsclient.so
+    #echo /usr/local/fastdfs-pro/lib >> /etc/ld.so.conf.d/fastdfs.conf
+    #echo /usr/local/fastdfs-pro/lib64 >> /etc/ld.so.conf.d/fastdfs.conf
+    #ldconfig
+    #copy configure file to etc dir
     cp conf/http.conf conf/mime.types /etc/fdfs
 
    echo "Begin edit configure file"
