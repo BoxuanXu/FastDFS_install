@@ -44,7 +44,9 @@ if [ ! -s "/usr/local/fastdfs-pro/bin/fdfs_test" ];then
    if [ ! -d "fastdfs-pro" ];then
       echo "Begin download fastdfs:"
       #git clone https://github.com/happyfish100/fastdfs.git
-      git clone git@47.92.110.187:shenyizhong/fastdfs-pro.git
+      #git clone git@47.92.110.187:shenyizhong/fastdfs-pro.git
+      wget -c ftp://192.168.1.244/pub/fastdfs-pro.tar.gz
+      tar xzvf fastdfs-pro.tar.gz
       cd fastdfs-pro
       git checkout dev 
    else
